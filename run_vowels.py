@@ -1,0 +1,23 @@
+
+
+from IPython import get_ipython
+# # get_ipython().magic('reset -sf')
+# get_ipython().run_line_magic('reset', '-sf')
+# runfile('vowels_vg_metrics.py')
+# get_ipython().run_line_magic('reset', '-sf')
+# runfile('vowels_select_spectra.py')
+# get_ipython().run_line_magic('reset', '-sf')
+# runfile('vowels_select_spectra_thresholds.py')
+# get_ipython().run_line_magic('reset', '-sf')
+# runfile('vowels_features.py')
+# get_ipython().run_line_magic('reset', '-sf')
+# runfile('vowels_features_thresholds.py')
+# get_ipython().run_line_magic('reset', '-sf')
+# runfile('vowels_models_rf.py')
+# get_ipython().run_line_magic('reset', '-sf')
+# runfile('vowels_models_rf_thresholds.py')
+get_ipython().run_line_magic('reset', '-sf')
+runfile('vowels_models_rf_shap.py')
+get_ipython().run_line_magic('reset', '-sf')
+# runfile('vowels_models_rf_permutation_importance.py')
+# get_ipython().run_line_magic('reset', '-sf')

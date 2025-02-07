@@ -2,7 +2,10 @@
 
 import numpy as np
 import os
+# import scipy as sp
 import pandas as pd
+# import librosa
+# import networkx as nx
 import bct
 
 # # # Non-nested functions
@@ -41,9 +44,9 @@ def get_nvg_dc(ts):
     return Adj
 
 
-
 # # # Define root directories
 root_dir = ''
+# data_dir = os.path.join(root_dir, 'data', 'vowels_data_wav_segments_curated')
 variables_dir = os.path.join(root_dir, 'variables')
 if not os.path.exists(variables_dir):
     os.makedirs(variables_dir)
@@ -52,17 +55,58 @@ if not os.path.exists(target_dir):
     os.makedirs(target_dir)
 
 
-
 # # # Define root variables
 vocalization_speakers = np.loadtxt(os.path.join(target_dir, 'vocalization_speakers.txt'), dtype='str')
 vocalization_vowels = np.loadtxt(os.path.join(target_dir, 'vocalization_vowels.txt'), dtype='str')
 vocalization_files = np.loadtxt(os.path.join(target_dir, 'vocalization_files.txt'), dtype='str')
+# subject_names = os.listdir(data_dir)
 subject_names = [s for s in np.unique(vocalization_speakers)]
 vowels = ['a', 'e', 'i', 'o', 'u']
 sr = 11025
 worN = 512
 orders = np.arange(10,21)
+# vocalization_speakers = []
+# vocalization_vowels = []
+# vocalization_files = []
+# for s in np.arange(len(subject_names)):
+#     for v in np.arange(len(vowels)):
+#         vowel = vowels[v]
+#         vowel_files = [filename for filename in os.listdir(os.path.join(data_dir, subject_names[s]))
+#                        if filename.startswith(str(vowel))]
+#         vocalization_speakers = vocalization_speakers + [subject_names[s]]*len(vowel_files)
+#         vocalization_vowels = vocalization_vowels + [vowel]*len(vowel_files)
+#         vocalization_files = vocalization_files + vowel_files
+# vocalization_speakers = np.array(vocalization_speakers)
+# vocalization_vowels = np.array(vocalization_vowels)
+# vocalization_files = np.array(vocalization_files)
+# np.savetxt(os.path.join(target_dir, 'vocalization_speakers.txt'), vocalization_speakers, fmt='%s')
+# np.savetxt(os.path.join(target_dir, 'vocalization_vowels.txt'), vocalization_vowels, fmt='%s')
+# np.savetxt(os.path.join(target_dir, 'vocalization_files.txt'), vocalization_files, fmt='%s')
 
+# # # Get spectrum functions
+# for o in np.arange(len(orders)):
+#     order = orders[o]
+#     dir_order = os.path.join(target_dir, 'order_'+str(order))
+#     if not(os.path.isdir(os.path.join(dir_order))):
+#         os.mkdir(os.path.join(dir_order))
+#     H_functions = np.zeros((worN, vocalization_files.size))
+#     freqs_tmp = np.zeros((worN, vocalization_files.size))
+#     lpcs = np.zeros((order+1, vocalization_files.size))
+#     for e in np.arange(vocalization_files.size):
+#         speaker = vocalization_speakers[e]
+#         vowel = vocalization_vowels[e]
+#         file = vocalization_files[e]
+#         y, sr = librosa.load(os.path.join(data_dir, speaker, file), sr=sr, dtype=np.float64)
+#         d = librosa.lpc(y, order=order)
+#         [f, h] = sp.signal.freqz(b=1, a=d, worN=worN, fs=sr)
+#         H_functions[:, e] = np.abs(h)
+#         freqs_tmp[:, e] = f
+#         lpcs[:, e] = d
+#     if sum([sum(freqs_tmp[:,i]-freqs_tmp[:,0]) for i in np.arange(freqs_tmp.shape[1])]) == 0:
+#         freqs = np.hstack(np.unique(freqs_tmp, axis=1))
+#     np.savetxt(os.path.join(dir_order, 'H_functions.txt'), H_functions)
+#     np.savetxt(os.path.join(dir_order, 'freqs.txt'), freqs)
+#     np.savetxt(os.path.join(dir_order, 'lpcs.txt'), lpcs)
 
 
 # # # Get visibility graph metrics
@@ -112,5 +156,4 @@ for o in np.arange(len(orders)):
 #     with pd.ExcelWriter(os.path.join(dir_order,'df_metrics_tables.xlsx')) as writer:
 #         for s in np.arange(len(subject_names)):
 #             df_metrics[df_metrics['Speaker'] == subject_names[s]].to_excel(writer, sheet_name=str(subject_names[s]))
-
 

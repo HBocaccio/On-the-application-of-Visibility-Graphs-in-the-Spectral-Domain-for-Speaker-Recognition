@@ -5,27 +5,26 @@ import os
 import pandas as pd
 
 
-
 # # # Define root directories
 root_dir = ''
+# data_dir = os.path.join(root_dir, 'data', 'vowels_data_wav_segments_curated')
 variables_dir = os.path.join(root_dir, 'variables', 'vg_metrics')
 target_dir = os.path.join(root_dir, 'variables', 'models')
 if not os.path.exists(target_dir):
     os.makedirs(target_dir)
 
 
-
 # # # Define root variables
 vocalization_speakers = np.loadtxt(os.path.join(variables_dir, 'vocalization_speakers.txt'), dtype='str')
 vocalization_vowels = np.loadtxt(os.path.join(variables_dir, 'vocalization_vowels.txt'), dtype='str')
 vocalization_files = np.loadtxt(os.path.join(variables_dir, 'vocalization_files.txt'), dtype='str')
+# subject_names = os.listdir(data_dir)
 subject_names = [s for s in np.unique(vocalization_speakers)]
 vowels = ['a', 'e', 'i', 'o', 'u']
 M = 10
-seed = 42
+seed = 1 #0 #42
 orders = np.arange(10,21)
 N_features = 1000
-
 
 
 # # # Split data
@@ -93,6 +92,7 @@ for o in np.arange(len(orders)):
         np.savetxt(os.path.join(model_dir, 'n_files_train.txt'), n_files_train, fmt='%i')
         np.savetxt(os.path.join(model_dir, 'n_files_val.txt'), n_files_val, fmt='%i')
         np.savetxt(os.path.join(model_dir, 'n_files_test.txt'), n_files_test, fmt='%i')
+        ### Observacion: Estas variables estan repetidas, pero no pesan nada
 
 
 

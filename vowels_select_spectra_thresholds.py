@@ -6,25 +6,25 @@ import pandas as pd
 import bct
 
 
-
 # # # Define root directories
 root_dir = ''
+# data_dir = os.path.join(root_dir, 'data', 'vowels_data_wav_segments_curated')
 variables_dir = os.path.join(root_dir, 'variables')
 target_dir = os.path.join(variables_dir, 'vg_metrics')
-
 
 
 # # # Define root variables
 vocalization_speakers = np.loadtxt(os.path.join(target_dir, 'vocalization_speakers.txt'), dtype='str')
 vocalization_vowels = np.loadtxt(os.path.join(target_dir, 'vocalization_vowels.txt'), dtype='str')
 vocalization_files = np.loadtxt(os.path.join(target_dir, 'vocalization_files.txt'), dtype='str')
+# subject_names = os.listdir(data_dir)
 subject_names = [s for s in np.unique(vocalization_speakers)]
 vowels = ['a', 'e', 'i', 'o', 'u']
 
 
-
 # # # Get binarizations
 thresholds = np.arange(0.5, 0.95+0.01, 0.05)
+# orders = np.arange(10,21)
 orders = [13]
 for o in np.arange(len(orders)):
     order = orders[o]
@@ -60,9 +60,9 @@ for o in np.arange(len(orders)):
         df_communities.to_excel(os.path.join(dir_threshold, 'df_communities.xlsx'))
 
 
-
 # # # Get giant component indices
 thresholds = np.arange(0.5, 0.95+0.01, 0.05)
+# orders = np.arange(10,21)
 orders = [13]
 for o in np.arange(len(orders)):
     order = orders[o]
@@ -86,5 +86,4 @@ for o in np.arange(len(orders)):
                 giant_sizes = np.append(giant_sizes, giant_sizes_tmp).astype('int')
         np.savetxt(os.path.join(dir_threshold, 'giant_indices.txt'), giant_indices, fmt='%i')
         np.savetxt(os.path.join(dir_threshold, 'giant_sizes.txt'), giant_sizes, fmt='%i')
-
 

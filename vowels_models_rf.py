@@ -10,27 +10,25 @@ from sklearn import ensemble
 from sklearn import metrics
 
 
-
 # # # Define root directories
 root_dir = ''
+# data_dir = os.path.join(root_dir, 'data', 'vowels_data_wav_segments_curated')
 variables_dir = os.path.join(root_dir, 'variables', 'vg_metrics')
 target_dir = os.path.join(root_dir, 'variables', 'models')
-
 
 
 # # # Define root variables
 vocalization_speakers = np.loadtxt(os.path.join(variables_dir, 'vocalization_speakers.txt'), dtype='str')
 vocalization_vowels = np.loadtxt(os.path.join(variables_dir, 'vocalization_vowels.txt'), dtype='str')
 vocalization_files = np.loadtxt(os.path.join(variables_dir, 'vocalization_files.txt'), dtype='str')
+# subject_names = os.listdir(data_dir)
 subject_names = [s for s in np.unique(vocalization_speakers)]
 vowels = ['a', 'e', 'i', 'o', 'u']
 M = 10
-seed = 42
+seed = 42 #6 #5 #4 #2 #42
 orders = np.arange(10,21)
 N_features = 1000
 droped = ['AvgDegree', 'Diameter']
-
-
 
 # # # Get vowels features combination matrices 
 for o in np.arange(len(orders)):
@@ -89,6 +87,10 @@ for o in np.arange(len(orders)):
                 X_test[e, :] = np.hstack(row_test)
                 e = e + 1
         # # # Grid search
+        # label2subject_dict = dict(zip(list(np.arange(len(subject_names))), subject_names))
+        # X_train = np.delete(X_train, np.arange(0, X_train.shape[1], 6), axis=1)
+        # X_val = np.delete(X_val, np.arange(0, X_val.shape[1], 6), axis=1)
+        # X_test = np.delete(X_test, np.arange(0, X_test.shape[1], 6), axis=1)
         X_train_combined = np.concatenate((X_train, X_val), axis=0)
         y_train_combined = np.concatenate((y_train, y_val), axis=0)
         np.random.seed(seed)
@@ -109,6 +111,7 @@ for o in np.arange(len(orders)):
         df_results.to_csv(os.path.join(model_dir, 'df_results_rf.csv'), index=False)
         # # # Train and test
         np.random.seed(seed)
+        # df_results = pd.read_csv(os.path.join(model_dir, 'df_results_rf.csv'), converters={'params': literal_eval})
         best_params = df_results['params'][np.argmax(df_results['mean_test_score'])]
         clf = sk.ensemble.RandomForestClassifier(n_estimators=best_params['n_estimators'],
                                                  max_depth=best_params['max_depth'],
@@ -123,5 +126,4 @@ for o in np.arange(len(orders)):
         np.savetxt(os.path.join(model_dir, 'importances_mean_rf.txt'), importances_mean)
         np.savetxt(os.path.join(model_dir, 'importances_std_rf.txt'), importances_std)
         np.savetxt(os.path.join(model_dir, 'estimators_rf.txt'), estimators)
-
 
