@@ -58,3 +58,39 @@ To train and evaluate our speaker recognition model, we performed 10 runs with d
 a subdirectory for each individual along with their corresponding audio files.
 
 ### Code
+
+
+### Results
+
+- 'run_figures.ipynb': This file is a Jupyter Notebook containing code blocks used for visualizing the results and creating figures.
+
+## Usage
+
+To reproduce the analysis or utilize the provided code, follow the order of code files listed below, as presented in the 'run.py' file:
+
+- 'data_preprocess.py'
+- 'train_models_dialects.py'
+- 'test_models_dialects.py'
+- 'train_models_individuals.py'
+- 'test_models_individuals.py'
+
+Afterward, you can utilize the 'run_figures.ipynb' notebook to visualize the results.
+
+Since we do not use random seeds in the code, multiple runs can give slight fluctuations in the results. However, after testing several runs, we found that the performance of the classifiers remains within the reported range (and may even be higher on some occasions), the results being robust enough for the conclusions to remain unaltered.
+
+## Requirements
+
+The following Python packages are required to run the code in this repository:
+
+- numpy
+- scipy
+- os
+- pandas
+- librosa
+- soundfile
+- noisereduce[^1]
+- sklearn
+- keras
+
+[^1]: https://pypi.org/project/noisereduce/
+
