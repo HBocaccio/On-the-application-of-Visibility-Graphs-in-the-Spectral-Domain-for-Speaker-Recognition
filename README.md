@@ -5,7 +5,7 @@ This repository contains the code and data used for the speaker recognition trou
 
 ## Data
 
-The dataset consists of audio recordings from 7 male Spanish-speaking participants, with ages in the range of (37.86 ± 5.15) years. The recordings contain isolated vocalizations of the five Spanish vowels, with each vowel repeated for at least 30 seconds. The audio files were preprocessed (mono, WAV, 11025 Hz) and segmented into 890 clean audio chunks.
+The dataset consists of audio recordings from 7 male Spanish-speaking adult participants, with ages in the range of (37.86 ± 5.15) years. The recordings contain isolated vocalizations of the five Spanish vowels, with each vowel repeated for at least 30 seconds. The audio files were preprocessed (mono, WAV, 11025 Hz) and segmented into 890 clean audio chunks.
 
 ## Preprocessing
 
@@ -19,9 +19,7 @@ Formants were extracted using Linear Predictive Coding (LPC) with an order of 13
 
 ### Selection of Representative Spectra  
 
-To identify the most representative spectral profiles for each speaker and vowel, we applied a community detection approach based on spectral similarity. We computed pairwise correlations between log power spectral functions, binarized them using a threshold of 0.9, and constructed an adjacency matrix. Using the BCT toolbox, we detected communities and selected the largest one (giant component) as the most characteristic spectral patterns, retaining 83% of the total spectra.  
-
-To assess robustness, we repeated this process with correlation thresholds from 0.5 to 0.95. The consistency of results across different thresholds demonstrated the method’s stability despite spectral variability.
+To identify the most representative spectral profiles for each speaker and vowel, we applied a community detection approach based on spectral similarity. We computed pairwise correlations between log power spectral functions, binarized them using a threshold of 0.9, and constructed an adjacency matrix. Using the BCT toolbox, we detected communities and selected the largest one (giant component) as the most characteristic spectral patterns, retaining 83% of the total spectra. To assess robustness, we repeated this process with correlation thresholds from 0.5 to 0.95. The consistency of results across different thresholds demonstrated the method’s stability despite spectral variability.
 
 ## Graph Construction
 
@@ -37,11 +35,13 @@ To train and evaluate our speaker recognition model, we performed 10 runs with d
 
 ## Repository Structure
 
-### Data
+### Variables
 
-- 'variables/vg_metrics/': This directory contains 
+- **`variables/vg_metrics/`**: This directory contains a subdirectory for each LPC order used. The corresponding spectral functions are in `H_functions.txt`, which serves as the basis for all analyses. It also includes the indices of the representative spectra and the graph-based metrics extracted from them. All these variables were obtained using a correlation threshold of 0.9 for selecting representative spectra.
 
-a subdirectory for each individual along with their corresponding audio files.
+- **`variables/models/`**: This directory contains the variables obtained during the training and evaluation of the models. It is structured into subdirectories, each corresponding to an LPC order used for spectral function computation. Within each of these, there are 10 subdirectories, each representing one of the 10 trained models, corresponding to different data splits. These subdirectories contain files with information on data partitioning, evaluation results of the trained models, predicted values, performance metrics, and extracted feature importances.
+
+- **`variables/models_thresholds/order_13/`**: This directory contains the files related to the analysis performed for different correlation threshold values used in the selection of representative spectra.
 
 ### Code
 
@@ -67,7 +67,7 @@ a subdirectory for each individual along with their corresponding audio files.
 
 ### Results
 
-- 'run_figures.ipynb': This file is a Jupyter Notebook containing code blocks used for visualizing the results and creating figures.
+- **`run_figures.ipynb`**: This file is a Jupyter Notebook containing code blocks used for visualizing the results and creating figures.
 
 ## Usage
 
@@ -93,9 +93,10 @@ The following Python packages are required to run the analysis on this repositor
 - ast
 - shap
 
-Another tools of interest:
+Other tools used in this work:
 
 - scipy
+- pydub
 - librosa
 - soundfile
 - noisereduce
