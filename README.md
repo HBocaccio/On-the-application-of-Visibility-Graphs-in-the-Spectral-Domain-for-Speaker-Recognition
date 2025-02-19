@@ -15,9 +15,9 @@ The audio signals were first converted to mono in WAV format and resampled to a 
 
 For the extraction of the spectral profile, we compute the speech formants by employing a linear predictive coding (LPC) approach, a well-established method in speech processing for modeling the vocal tract filter related spectral content of the speech signals. The LPC coefficients were computed using the Librosa package, with the LPC order set to 13. This selection follows the methodology of previous works, where 13 poles were sufficient to capture the main features of the formant’s envelope, offering a balance between model complexity and the accuracy of the spectral representation of the vowels. Once the LPC coefficients were obtained, we computed the frequency response of the system using the “scipy.signal.freqz” function, specifying the use of 512 discrete frequency bins to ensure a high-resolution spectral profile. Hence, the power spectral function was estimated according equation (1), using d_0=1 and d_k as the set of LPC coefficients.
 
-\begin{equation}
+$$
 H(f) = \frac{d_{0}}{1-\sum_{k=1}^{m} d_{k}e^{i k 2 \pi f \Delta}}
-\end{equation}
+$$
 
 Due to the sampling rate after resampling, the spectral profiles were computed over a frequency range of 0 to approximately 5512 Hz (half the sampling rate), which encompasses the frequency range of interest for the vowels under analysis. In Figure 1a we show an example of a log power spectral function, i.e. log(|H(f)|^2), where H is the frequency response computed in (1), extracted from an isolated audio. We also show the associated spectrogram, reflecting the spotlight of resonant frequencies characteristics through the spectral profile representation. In addition to the analysis conducted using an LPC order of 13, we performed a sensitivity analysis by calculating spectral profiles for a range of LPC orders, from 10 to 20. This exploration aimed to evaluate the robustness of the method and the sensitivity of the corresponding analysis to the chosen LPC order.
 
@@ -31,9 +31,9 @@ While the primary results were obtained using a correlation threshold of 0.9, we
 
 We constructed the visibility graphs from spectral profiles descriptive below. For this purpose, we used the definition of natural visibility graphs according to equation (2). This involved transforming the spectral representations of each vowel segment into visibility graphs, where nodes represent the spectral profile amplitude of discrete frequency components and edges denote visibility relationships between nodes according to this amplitude. We show the visibility links computed between discrete frequencies of the series in the spectral domain for the previous audio example and the resulting visibility graph with a forced-based layout. The construction of visibility graphs allowed us to abstract the spectral data into graphical structures, facilitating the analysis of connectivity patterns and topological features embedded within the frequency spectra. We applied a divide and conquer strategy for faster algorithm procedures which has shown the fastest offline computing algorithm for general time series.
 
-\begin{equation}
+$$
 y_{c} < y_{b} + (y_{a}-y_{b})\frac{t_{b}-t_{c}}{t_{b}-t_{a}}
-\end{equation}
+$$
 
 Once the visibility graphs were constructed, we applied graph theory metrics to quantify various topological properties of the graphs. The metrics included were link density, average path length, clustering coefficient, and modularity. By computing these metrics for each vowel segment, we generated attribute vectors encapsulating the topological characteristics of the spectral data. These attribute vectors served as input features for subsequent speaker recognition analysis.
 
