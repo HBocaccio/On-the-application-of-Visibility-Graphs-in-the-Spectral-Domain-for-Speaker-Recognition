@@ -45,6 +45,25 @@ a subdirectory for each individual along with their corresponding audio files.
 
 ### Code
 
+- **`run_vowels.py`**: Main script that coordinates the entire speaker recognition analysis, including data loading, preprocessing, feature extraction, and model training.  
+
+- **`vowels_vg_metrics.py`**: Computes graph-based visibility metrics from spectral profiles, transforming spectral representations into graphical structures and extracting relevant topological properties for speaker recognition.
+
+- **`vowels_select_spectra.py`**: Selects the most representative spectra for each speaker and vowel using community detection techniques based on spectral similarity, ensuring that the most informative features are used.  
+
+- **`vowels_select_spectra_thresholds.py`**: Extends `vowels_select_spectra.py` by evaluating different thresholds in the selection of representative spectra, studying how these affect community composition and feature quality.  
+
+- **`vowels_features.py`**: Contains functions for extracting spectral features from vowel recordings, such as formant computation and spectral profile generation.  
+
+- **`vowels_features_thresholds.py`**: Similar to `vowels_features.py`, but designed to assess the robustness of extracted features under different correlation thresholds, analyzing their impact on model performance.  
+
+- **`vowels_models_rf.py`**: Implements training and evaluation of Random Forest models for speaker recognition, including hyperparameter optimization and cross-validation.  
+
+- **`vowels_models_rf_permutation_importance.py`**: Computes feature importance using the permutation method in the Random Forest model to determine which variables have the greatest impact on predictions.  
+
+- **`vowels_models_rf_shap.py`**: Uses SHAP (SHapley Additive exPlanations) to interpret the contribution of each feature to the Random Forest model's decisions, providing detailed explanations of predictions.  
+
+- **`vowels_models_rf_thresholds.py`**: Evaluates the performance of the Random Forest model under different correlation thresholds in the features, analyzing model stability and generalization.  
 
 ### Results
 
@@ -52,23 +71,38 @@ a subdirectory for each individual along with their corresponding audio files.
 
 ## Usage
 
-To reproduce the analysis or utilize the provided code, follow the order of code files listed below, as presented in the 'run.py' file:
+To reproduce the main analysis, follow the order of code files listed below, as presented in the 'run_vowels.py' file:
 
-- '.py'
+- 'vowels_vg_metrics.py'
+- 'vowels_select_spectra.py'
+- 'vowels_features.py'
+- 'vowels_models_rf.py'
+- 'vowels_models_rf_shap.py'
 
 Afterward, you can utilize the 'run_figures.ipynb' notebook to visualize the results.
 
 ## Requirements
 
-The following Python packages are required to run the code in this repository:
+The following Python packages are required to run the analysis on this repository:
 
 - numpy
-- scipy
 - os
 - pandas
+- bct
+- sklearn
+- ast
+- shap
+
+Another tools of interest:
+
+- scipy
 - librosa
 - soundfile
 - noisereduce
-- sklearn
-- shap
+- matplotlib
+- seaborn
+
+## How to cite
+
+
 
