@@ -18,6 +18,7 @@ For the extraction of the spectral profile, we compute the speech formants by em
 $$
 H(f) = \frac{d_{0}}{1-\sum_{k=1}^{m} d_{k}e^{i k 2 \pi f \Delta}}
 $$
+*(1)*
 
 Due to the sampling rate after resampling, the spectral profiles were computed over a frequency range of 0 to approximately 5512 Hz (half the sampling rate), which encompasses the frequency range of interest for the vowels under analysis. In Figure 1a we show an example of a log power spectral function, i.e. log(|H(f)|^2), where H is the frequency response computed in (1), extracted from an isolated audio. We also show the associated spectrogram, reflecting the spotlight of resonant frequencies characteristics through the spectral profile representation. In addition to the analysis conducted using an LPC order of 13, we performed a sensitivity analysis by calculating spectral profiles for a range of LPC orders, from 10 to 20. This exploration aimed to evaluate the robustness of the method and the sensitivity of the corresponding analysis to the chosen LPC order.
 
@@ -34,6 +35,7 @@ We constructed the visibility graphs from spectral profiles descriptive below. F
 $$
 y_{c} < y_{b} + (y_{a}-y_{b})\frac{t_{b}-t_{c}}{t_{b}-t_{a}}
 $$
+*(2)*
 
 Once the visibility graphs were constructed, we applied graph theory metrics to quantify various topological properties of the graphs. The metrics included were link density, average path length, clustering coefficient, and modularity. By computing these metrics for each vowel segment, we generated attribute vectors encapsulating the topological characteristics of the spectral data. These attribute vectors served as input features for subsequent speaker recognition analysis.
 
