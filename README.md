@@ -23,7 +23,7 @@ To identify the most representative spectral profiles for each speaker and vowel
 
 ## Visibility Graph Construction
 
-We constructed visibility graphs from the spectral profiles of each vowel segment using the **Natural Visibility Graph (NVG)** algorithm introduced by Lacasa et al. (2008). In this framework, each log power spectral profile (i.e., log(|H(f)|²)) is treated as a one-dimensional sequence, where each node corresponds to the amplitude at a discrete frequency bin. An edge is established between two nodes (a, b), with $a < b$, if every intermediate node $c$ satisfies the **visibility criterion**:
+We constructed visibility graphs from the spectral profiles of each vowel segment using the **Natural Visibility Graph (NVG)** algorithm introduced by Lacasa et al. (2008) [[1]](#1). In this framework, each log power spectral profile (i.e., log(|H(f)|²)) is treated as a one-dimensional sequence, where each node corresponds to the amplitude at a discrete frequency bin. An edge is established between two nodes (a, b), with $a < b$, if every intermediate node $c$ satisfies the **visibility criterion**:
 
 ```math
 y_c < y_b + (y_a - y_b) \cdot \frac{t_b - t_c}{t_b - t_a}
@@ -31,7 +31,7 @@ y_c < y_b + (y_a - y_b) \cdot \frac{t_b - t_c}{t_b - t_a}
 
 Here, $y_i$ denotes the spectral amplitude at frequency index $t_i$, and the inequality must hold for all $t_c$ between $t_a$ and $t_b$. This ensures that node $a$ "sees" node $b$ without obstruction.
 
-To efficiently compute these graphs across the dataset, we used a divide-and-conquer implementation based on Lan et al. (2015), adapted to operate directly on the log-magnitude spectral functions. This algorithm achieves optimal performance for general time series.
+To efficiently compute these graphs across the dataset, we used a divide-and-conquer implementation based on Lan et al. (2015) [[2]](#2), adapted to operate directly on the log-magnitude spectral functions. This algorithm achieves optimal performance for general time series.
 
 ## Graph-Based Feature Extraction
 
@@ -122,7 +122,14 @@ Other tools used in this work:
 - matplotlib
 - seaborn
 
+## References
+<a id="1">[1]</a> 
+Lacasa, L., Luque, B., Ballesteros, F., Luque, J., & Nuno, J. C. (2008). From time series to complex networks: The visibility graph. Proceedings of the National Academy of Sciences, 105(13), 4972-4975.
+
+<a id="2">[2]</a> 
+Lan, X., Mo, H., Chen, S., Liu, Q., & Deng, Y. (2015). Fast transformation from time series to visibility graphs. Chaos: An Interdisciplinary Journal of Nonlinear Science, 25(8).
+
 ## How to cite
 
-
+Bocaccio, H., Iglesias-Pérez, S., Romance, M., Criado, R., Mindlin, G. B. (2025). On the application of Visibility Graphs in the Spectral Domain for Speaker Recognition. Pre-print arXiv:2502.14110
 
