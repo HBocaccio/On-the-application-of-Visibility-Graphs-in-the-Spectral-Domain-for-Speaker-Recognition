@@ -21,9 +21,28 @@ Formants were extracted using Linear Predictive Coding (LPC) with an order of 13
 
 To identify the most representative spectral profiles for each speaker and vowel, we applied a community detection approach based on spectral similarity. We computed pairwise correlations between log power spectral functions, binarized them using a threshold of 0.9, and constructed an adjacency matrix. Using the BCT toolbox, we detected communities and selected the largest one (giant component) as the most characteristic spectral patterns, retaining 83% of the total spectra. To assess robustness, we repeated this process with correlation thresholds from 0.5 to 0.95. The consistency of results across different thresholds demonstrated the method’s stability despite spectral variability.
 
-## Graph Construction
+## Visibility Graph Construction
 
-Visibility graphs were constructed from spectral profiles using natural visibility graphs. Graph-based metrics (link density, path length, clustering coefficient, modularity) were computed for each vowel segment and used as features for classification.
+We constructed visibility graphs from the spectral profiles of each vowel segment using the **Natural Visibility Graph (NVG)** algorithm introduced by Lacasa et al. (2008). In this framework, each log power spectral profile (i.e., log(|H(f)|²)) is treated as a one-dimensional sequence, where each node corresponds to the amplitude at a discrete frequency bin. An edge is established between two nodes (a, b), with $a < b$, if every intermediate node $c$ satisfies the **visibility criterion**:
+
+```math
+y_c < y_b + (y_a - y_b) \cdot \frac{t_b - t_c}{t_b - t_a}
+```
+
+Here, $y_i$ denotes the spectral amplitude at frequency index $t_i$, and the inequality must hold for all $t_c$ between $t_a$ and $t_b$. This ensures that node $a$ "sees" node $b$ without obstruction.
+
+To efficiently compute these graphs across the dataset, we used a divide-and-conquer implementation based on Lan et al. (2015), adapted to operate directly on the log-magnitude spectral functions. This algorithm achieves optimal performance for general time series.
+
+## Graph-Based Feature Extraction
+
+After transforming each spectral profile into a visibility graph, we computed four graph-theoretical metrics to capture its structural properties:
+
+* **Link density**: the proportion of existing edges to all possible edges, indicating overall connectivity.
+* **Average shortest path length**: the mean number of steps along the shortest paths between all pairs of nodes, reflecting the efficiency of the network.
+* **Clustering coefficient**: the tendency of nodes to form tightly connected neighborhoods.
+* **Modularity**: the strength of division of the graph into distinct communities with dense internal links and sparse external ones.
+
+These metrics were computed from the unweighted and undirected adjacency matrices using functions from the Brain Connectivity Toolbox (BCT) for Python. Together, they offer a compact, interpretable summary of the spectral structure of each vowel segment and serve as input features for the classification models developed in this work.
 
 ### Train and Test
 
