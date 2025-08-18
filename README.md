@@ -131,5 +131,5 @@ Lan, X., Mo, H., Chen, S., Liu, Q., & Deng, Y. (2015). Fast transformation from 
 
 ## How to cite
 
-Bocaccio, H., Iglesias-Pérez, S., Romance, M., Criado, R., Mindlin, G. B. (2025). On the application of Visibility Graphs in the Spectral Domain for Speaker Recognition. Pre-print arXiv:2502.14110
+Bocaccio, H., Iglesias-Pérez, S., Romance, M., Criado, R., Mindlin, G. B. (2025). On the application of Visibility Graphs in the Spectral Domain for Speaker Recognition. Physica D: Nonlinear Phenomena, 481, 134868. DOI: 10.1016/j.physd.2025.134868
 
